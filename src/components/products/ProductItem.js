@@ -1,26 +1,15 @@
 import React, { Component } from 'react';
 
-class ProductItem extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      products: props
-    }
-  }
-
-
-  
+class ProductItem extends Component {  
   render(){
-    console.log(this.state.products);
     return(
-     
-          <div className="col-8 col-sm-8 col-md-6 col-lg-2 mb-2 mt-2">
-            <img className="card-img-top" src={this.state.products.galleryURL} alt="Card image cap" />
-            <div className="card-body">
-              <p className="card-text">{this.state.products.title}</p>
-              <p className="card-text">{this.state.products.sellingStatus[0].currentPrice[0].__value__}</p>
-            </div>
-          </div>
+      <div className="col-8 col-sm-8 col-md-6 col-lg-3 mb-3 mt-3">
+        <img className="card-img-top img-thumbnail h-50 w-75" src={this.props.galleryURL} alt="products" />
+        <div className="card-body">
+          <p className="card-text">{this.props.title[0]}</p>
+          <p className="card-text">{this.props.sellingStatus[0].currentPrice[0].__value__}</p>
+        </div>
+      </div>
     
    
     )
