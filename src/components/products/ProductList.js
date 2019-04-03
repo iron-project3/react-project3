@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ProductService from '../../services/ProductService';
+import OrderService from '../../services/OrderService';
 import ProductItem from './ProductItem';
 import { withAuthConsumer } from '../../context/AuthStore';
 import { Redirect } from 'react-router-dom';
@@ -72,8 +73,18 @@ class ProductList extends Component {
     if (this.props.isAuthenticated()) {
       ProductService.saveProduct(product)
       .then(product => {
-        console.log(product)
+        OrderService.createOrder(product)
+        .then(product => {
+          console.log(product)
+        }).catch((err) => console.log(err));
       }).catch((err) => console.log(err));
+
+      // OrderService.createOrder(product)
+      // .then(product => {
+      //   console.log(product)
+      // }).catch((err) => console.log(err));
+
+     
     } else {
       this.setState({
         toLogin: true
