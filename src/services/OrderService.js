@@ -1,4 +1,8 @@
-// import http from './BaseService';
+import http from './BaseService';
 
-// const authenticate = (user) => http.post('/', user)
-// .then(response => response.data);
+const createOrder = (product) => http.post('/order', product)
+  .then(response => response.data);
+
+  export default {
+    createOrder
+  }

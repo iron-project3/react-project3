@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ProductService from '../../services/ProductService';
 import ProductItem from './ProductItem';
+import { withAuthConsumer } from '../../context/AuthStore';
+import { Redirect } from 'react-router-dom';
 
 class ProductList extends Component {
   state = {
@@ -8,6 +10,7 @@ class ProductList extends Component {
     search: "imac",
     productDetail: null,
     similar: [],
+    toLogin: false
   }
 
   fetchProducts = () => {
@@ -65,12 +68,25 @@ class ProductList extends Component {
     })
   }
 
-  // "title":["Apple iMac 20” Mac Desktop / 500GB 21.5 / OSX-2015 / 3 YEAR Warranty INCLUDED! "],"subtitle":["3-YEAR Warranty Included - VALUE DEAL - FULLY TESTED"],"galleryURL":["http://thumbs4.ebaystatic.com/m/md0-ByK9E6uu5XtmMfClPzw/140.jpg"],
-  // "sellingStatus":[{"currentPrice":[{"@currencyId":"USD","__value__":"279.0"}],"convertedCurrentPrice":[{"@currencyId":"USD","__value__":"279.0"}],"sellingState":["Active"],
-  // "timeLeft":["P16DT1H55M21S"]}],"primaryCategory":[{"categoryId":["111418"],
-  // "categoryName":["Apple Desktops & All-In-Ones"]}]}
+  handleAddCart = (product) => {
+    if (this.props.isAuthenticated()) {
+      ProductService.saveProduct(product)
+      .then(product => {
+        console.log(product)
+      }).catch((err) => console.log(err));
+    } else {
+      this.setState({
+        toLogin: true
+      })
+    }
+  }
+
+
 
   render() {
+    if (this.state.toLogin) {
+      return (<Redirect to='/login' />);
+    }
     
     if (this.state.productDetail) {
       return(
@@ -85,7 +101,7 @@ class ProductList extends Component {
                 <p className="card-text">{this.state.productDetail.subtitle}</p>
                 <h6 className="text-white ">${this.state.productDetail.sellingStatus[0].currentPrice[0].__value__}</h6>
                 <div className="btn-toolbar">
-                  <button type="button" className="btn btn-primary mx-auto ">Add to Cart</button>
+                  <button type="button" className="btn btn-primary mx-auto " onClick={() => this.handleAddCart(this.state.productDetail)}>Add to Cart</button>
                   <button type="button" className="btn btn-danger mx-auto " onClick={() => this.handleClickBack()}>Go Back</button>
                 </div>
               </div>
@@ -114,4 +130,4 @@ class ProductList extends Component {
   }
 }
 
-export default ProductList;
+export default withAuthConsumer(ProductList);

@@ -1,9 +1,19 @@
 import http from './BaseService';
 
-const getProducts = (params = {}) => http.get('/product', { params }).then(response => response.data);
-const getProductsByCategory = (params = {}) => http.get('/product/', { params }).then(response => response.data);
+const getProducts = (params = {}) => 
+  http.get('/product', { params })
+    .then(response => response.data);
+
+const getProductsByCategory = (params = {}) => 
+  http.get('/product/', { params })
+    .then(response => response.data);
+    
+const saveProduct = (product) => 
+  http.post('/product', product)
+    .then(response => response.data);
 
 export default {
   getProducts,
-  getProductsByCategory
+  getProductsByCategory,
+  saveProduct
 }

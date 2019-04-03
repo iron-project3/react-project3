@@ -8,7 +8,7 @@ class AuthStore extends Component {
     user: JSON.parse(localStorage.getItem(USER_STORAGE_KEY) || '{}')
   }
 
-  handleUserChange = (user) => {
+  handleUserChange= (user) => {
     this.setState({
       user: user
     })
@@ -38,9 +38,9 @@ class AuthStore extends Component {
 }
 
 const withAuthConsumer = (Component) => {
-  return () => (
+  return (props) => (
     <AuthContext.Consumer>
-      {(props) => (<Component {...props} />)}
+      {(storeProps) => (<Component {...props} {...storeProps}/>)}
     </AuthContext.Consumer>
   );
 }

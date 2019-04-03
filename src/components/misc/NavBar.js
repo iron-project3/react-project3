@@ -1,40 +1,61 @@
-import React, { Component } from 'react';
-// import ProductService from '../../services/ProductService';
+import React, { Component, Fragment } from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import { withAuthConsumer } from '../../context/AuthStore';
+import authService from '../../services/AuthService';
+import { withRouter } from 'react-router-dom';
+
 class NavBar extends Component {
-  state = {
-    products: [],
-    search: 'imac'
+  handleLogout = () => {
+    authService.logout()
+      .then(() => {
+        const { history } = this.props;
+        console.log(this.props);
+        this.props.onUserChange({});
+        history.push('/login');
+      })
   }
-
-  // fetchProducts = () => {
-  //   ProductService.getProducts({ search: this.state.search })
-  //     .then(products => console.log({ products }))
-  // }
-
-  // handleOnChange = () => {}
-
-  // handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   ProductService.getProducts({
-  //     params: {
-  //       search: 'iphone'
-  //     }
-  //   })
-  // }
   
   render(){
+    const { user } = this.props;
+
     return(
-    <nav className="navbar navbar-dark bg-dark text-light">
-      <a className="navbar-brand">Navbar</a>
-      {/* <form className="form-inline"> */}
-      {/* textarea name="textareaInputValue" value={this.props.inputValue} onChange={e => this.props.Filter(e.target.value)}/> */}
-        {/* <input className="form-control mr-sm-2" name="search" type="search" placeholder="Search" value={this.props.search} aria-label="Search" />
-        <button className="btn btn-outline-success my-2 my-sm-0" type="submit"  onSubmit={event => this.handleSubmit(event)}>Search</button>
-      </form> */}
-    </nav>
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <Link className="navbar-brand" to="/product">Wants</Link>
+        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+
+        <div className="collapse navbar-collapse" id="mainNavbar">
+          <ul className="navbar-nav mr-auto">
+          </ul>
+
+          <ul className="navbar-nav my-2 my-lg-0">
+            { !user.email && (
+              <Fragment>
+                <li className="nav-item">
+                  <NavLink className="nav-link" activeClassName="active" to="/login">Login</NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link" activeClassName="active" to="/register">Register</NavLink>
+                </li>
+              </Fragment>
+            )}
+            { user.email && (
+              <Fragment>
+                <li className="nav-item">
+                  <a href="#" className="nav-link">{user.email}</a>
+                </li>
+                <li className="nav-item">
+                  <a href="#" className="nav-link" onClick={this.handleLogout}>Logout</a>
+                </li>
+              </Fragment>
+            )}
+          </ul>
+        </div>
+      </nav>
    
     )
   }
 }
 
-export default NavBar;
+export default  withAuthConsumer(withRouter(NavBar));
