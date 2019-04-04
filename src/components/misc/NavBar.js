@@ -3,6 +3,8 @@ import { Link, NavLink } from 'react-router-dom';
 import { withAuthConsumer } from '../../context/AuthStore';
 import authService from '../../services/AuthService';
 import { withRouter } from 'react-router-dom';
+// import OrderService from '../../services/OrderService';
+// import Cart from '../cart/Cart';
 
 class NavBar extends Component {
   handleLogout = () => {
@@ -14,12 +16,19 @@ class NavBar extends Component {
         history.push('/login');
       })
   }
+
+  // handleCart = (user) => {
+  //   OrderService.getOrder(user)
+  //     .then(order => {
+  //       console.log(order)
+  //     }).catch((err) => console.log(err));
+  // }
   
   render(){
     const { user } = this.props;
 
     return(
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
         <Link className="navbar-brand" to="/product">Wants</Link>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
@@ -44,6 +53,9 @@ class NavBar extends Component {
               <Fragment>
                 <li className="nav-item">
                   <a href="#" className="nav-link">{user.email}</a>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link" activeClassName="active" to="/cart">Cart</NavLink>
                 </li>
                 <li className="nav-item">
                   <a href="#" className="nav-link" onClick={this.handleLogout}>Logout</a>

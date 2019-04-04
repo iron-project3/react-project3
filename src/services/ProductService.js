@@ -11,9 +11,13 @@ const getProductsByCategory = (params = {}) =>
 const saveProduct = (product) => 
   http.post('/product', product)
     .then(response => response.data);
+    
+const productFind = (params = {}) => http.get('/product/cart/' , { params })
+  .then(response => response.data);
 
 export default {
   getProducts,
   getProductsByCategory,
-  saveProduct
+  saveProduct,
+  productFind
 }

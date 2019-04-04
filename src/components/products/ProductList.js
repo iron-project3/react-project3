@@ -74,17 +74,11 @@ class ProductList extends Component {
       ProductService.saveProduct(product)
       .then(product => {
         OrderService.createOrder(product)
-        .then(product => {
-          console.log(product)
+        .then(order => {
+          console.log(order)
         }).catch((err) => console.log(err));
       }).catch((err) => console.log(err));
-
-      // OrderService.createOrder(product)
-      // .then(product => {
-      //   console.log(product)
-      // }).catch((err) => console.log(err));
-
-     
+      
     } else {
       this.setState({
         toLogin: true
