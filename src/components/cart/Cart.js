@@ -4,14 +4,23 @@ import { withAuthConsumer } from '../../context/AuthStore';
 
 class Cart extends Component {
   state = {
-    products: [],
+    productIds: [],
   }
 
   handleCart = () => {
     OrderService.getOrder(this.props.user.id)
       .then(order => {
-        console.log(order)
-      }).catch((err) => console.log(err));
+        const productArr = [];
+        for(var i = 0; i < order.length; i++){
+          productArr.push(order[i].product[0]);
+        }
+        this.setState({
+          ...this.state,
+          productIds: productArr,
+        })
+        // console.log("state:" + this.state.productIds)
+      })
+      .catch((err) => console.log(err));
   }
 
   componentDidMount() {
@@ -19,8 +28,7 @@ class Cart extends Component {
   }
   
   render(){
-    const user = this.props;
-    // console.log(user);
+    // const user = this.props;
     return(
       <div>
         hello
