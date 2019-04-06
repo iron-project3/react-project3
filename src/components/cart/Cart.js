@@ -3,6 +3,7 @@ import OrderService from '../../services/OrderService';
 // import ProductService from '../../services/ProductService';
 import { withAuthConsumer } from '../../context/AuthStore';
 import CartItem from './CartItem';
+import Checkout from './Checkout';
 
 class Cart extends Component {
   state = {
@@ -46,7 +47,8 @@ class Cart extends Component {
           {this.state.products.map((product, i) => 
             <CartItem product={product} key={i}></CartItem>
           )}
-          <div className='container'><h3>Total: ${totalPrice}</h3></div><button>Checkout</button>
+          <div className='container'><h3>Total: ${totalPrice}</h3></div>
+          <Checkout></Checkout>
       </div>
       );
     } else {
