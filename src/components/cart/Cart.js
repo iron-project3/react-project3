@@ -14,7 +14,6 @@ class Cart extends Component {
   handleCart = () => {
     OrderService.getOrder(this.props.user.id)
       .then(order => {
-        console.log(order)
         this.setState({
           products: order.product || []
         })
@@ -25,7 +24,6 @@ class Cart extends Component {
 
   componentDidMount() {
     this.handleCart();
-   
   }
 
   getPrice(){
@@ -47,9 +45,9 @@ class Cart extends Component {
           {this.state.products.map((product, i) => 
             <CartItem product={product} key={i}></CartItem>
           )}
-          <div className='container'><h3>Total: ${totalPrice}</h3></div>
+          <h3>Total: ${totalPrice}</h3>
           <Checkout></Checkout>
-      </div>
+        </div>
       );
     } else {
       return (

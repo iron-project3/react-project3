@@ -2,13 +2,22 @@ import React, {Component} from 'react';
 import OrderService from '../../services/OrderService'
 
 class CarItem extends Component{
-  deleteProduct = (e) => {
-    OrderService.deleteProduct()
-    .then(order => console.log(order));
+  state = {
+    products: []
+  }
+
+  deleteProduct = () => {
+    const product = this.props.product;
+    
+    OrderService.deleteProduct(product._id)
+    .then(order => {
+      console.log(order.product)
+    });
+    console.log(this.props.product);
   }
 
   render(){
-  console.log(this.props);
+    
   return (
     <div className="media">
       <img src={this.props.product.image} className="mr-3" alt="..." />
