@@ -6,7 +6,11 @@ const createOrder = (product) => http.post('/order', product)
 const getOrder = (params) => http.get('/order/' + params)
   .then(response => response.data);
 
+const deleteOrder = (params) => http.post('/order/delete')
+  .then(response => response.data);
+
   export default {
     createOrder,
-    getOrder
+    getOrder,
+    deleteOrder
   }
