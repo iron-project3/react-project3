@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import NavBar from '../src/components/misc/NavBar';
 import ProductList from './components/products/ProductList';
+import Sucess from './components/cart/Sucess';
 import Cart from './components/cart/Cart';
 import { Switch, Route } from 'react-router-dom';
 import { Login, Register } from './components/auth';
@@ -18,6 +19,7 @@ class App extends Component {
               <Route exact path="/product" component={ProductList}/>
               <Route exact path="/login" component={Login}/>
               <Route exact path="/register" component={Register}/>
+              <Route exact path="/sucess" component={Sucess}/>
             </Switch>
           </div>
         </section>

@@ -2,18 +2,13 @@ import React, {Component} from 'react';
 import OrderService from '../../services/OrderService'
 
 class CarItem extends Component{
-  state = {
-    products: []
-  }
-
   deleteProduct = () => {
     const product = this.props.product;
-    
+    this.props.onDelete(product._id)
     OrderService.deleteProduct(product._id)
-    .then(order => {
-      console.log(order.product)
-    });
-    console.log(this.props.product);
+      .then(order => {
+        console.log(order)
+      });
   }
 
   render(){

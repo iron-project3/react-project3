@@ -4,8 +4,8 @@ const getProducts = (params = {}) =>
   http.get('/product', { params })
     .then(response => response.data);
 
-const getProductsByCategory = (params = {}) => 
-  http.get('/product/', { params })
+const getSuggestions = (params = {}) => 
+  http.get('/product/suggestions', { params })
     .then(response => response.data);
     
 const saveProduct = (product) => 
@@ -17,7 +17,7 @@ const productFind = (params = {}) => http.get('/product/cart/' , { params })
 
 export default {
   getProducts,
-  getProductsByCategory,
+  getSuggestions,
   saveProduct,
   productFind
 }
