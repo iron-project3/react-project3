@@ -28,23 +28,26 @@ class Cart extends Component {
         this.setState({
           products: order.product || []
         })
+        ProductService.getSuggestions({
+          search: this.state.products[0].category
+        })
+          .then(Moresuggestions => {
+            this.setState({
+              suggestions: Moresuggestions
+            })
+            console.log(this.state.suggestions)
+            console.log(this.state.products[0].category)
+          })
         this.getPrice();
       })
       .catch((err) => console.log(err));
-    // ProductService.getSuggestions()
-    //   .then(suggestions => {
-    //     this.setState({
-    //       suggestions: suggestions
-    //     })
-    //     console.log(this.state.suggestions)
-    //   })
   }
 
   handleDeleteProduct = (productId) =>{
     let productCopy = this.state.products
     // productCopy.filter(element => element._id !== product);
     for (var i = 0; i < productCopy.length; i++){
-      if(productCopy[i]._id == productId){
+      if(productCopy[i]._id === productId){
         productCopy.splice(i,1);
       }
     }

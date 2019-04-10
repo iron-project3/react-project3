@@ -52,13 +52,13 @@ class NavBar extends Component {
             { user.email && (
               <Fragment>
                 <li className="nav-item">
-                  <a href="#" className="nav-link">{user.email}</a>
+                  <span  className="nav-link">{user.email}</span>
                 </li>
                 <li className="nav-item">
                   <NavLink className="nav-link" activeClassName="active" to="/cart">Cart</NavLink>
                 </li>
                 <li className="nav-item">
-                  <a href="#" className="nav-link" onClick={this.handleLogout}>Logout</a>
+                  <span className="nav-link" onClick={this.handleLogout}>Logout</span>
                 </li>
               </Fragment>
             )}
